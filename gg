@@ -1,0 +1,175 @@
+#include <stdio.h>
+#include <math.h>
+
+double compute_mean(int scores[],int days_lates[], int number_of_assignments, int penalty);
+void display_stats(int assignment_num[], int scores[], int weight[], int days_late[], int  total_numof_assignment);
+double compute_std(int scores[], int days_lates[], int number_of_assignments, int penalty);
+const MAX 200;
+
+int main() {
+  int penalty_points = 0;
+  int i, j;
+  int num_assignments_todrop = 0, total_numof_assignment = 0;
+  int assignment_num[total_numof_assignment], score[total_numof_assignment],
+    days_late[total_numof_assignment], weight[total_numof_assignment];
+  char show_stat = 'y' || 'Y';
+  int total_weight[total_numof_assignment];
+
+/* Taking user input and assigning accordingly. */
+  scanf("%d %d %c\n", &penalty_points, &num_assignments_todrop, &show_stat);
+  scanf("%d\n", & total_numof_assignment);
+
+/* The number of assignments to drop MUST be less than total number of assignments. */
+if(total_numof_assignment < num_assignments_todrop) {
+printf("Error reenter the number of assignments greater than the number of assignments to drop!");
+ scanf("%d %d %c\n", & penalty_points, & num_assignments_todrop, & show_stat);
+  scanf("%d\n", & total_numof_assignment);
+
+}
+
+/* Assigning arrays. */
+  for (i = 1; i < total_numof_assignment; i++) {
+    scanf("%d, %d, %d, %d", &assignment_num[i], & score[i], & weight[i], & days_late[i]);
+total_weight[total_numof_assignment] += weight[i];
+  }
+
+/* Displays all stats and the std dev along with the mean if the */
+/* Condition total weight == 100 and the show stats option is Y. */
+if(total_weight[total_numof_assignment] == 100) {
+
+ if(show_stat == 'y' || show_stat == 'Y') {
+  display_stats(assignment_num, score, weight, days_late, total_numof_assignment);
+compute_std(scores[total_numof_assignment], days_lates[total_numof_assignment], number_of_assignments, penalty_points);
+printf("Mean: %5.4f  Standard Deviation: %5.4f", mean, std_dev);
+
+/* show stat == 'N' will not show the std dev or mean. */
+} else {
+display_stats(assignment_num, score, weight, days_late, total_numof_assignment);
+
+}
+
+/* Else program exits. */
+} else {
+printf("ERROR:Invalid values provided"\n);
+
+exit(1);
+
+}
+  return 0;
+
+}
+
+
+void display_stats(int assignment_num[MAX], int score[MAX], int weight[MAX], int days_late[MAX], int total_numof_assignment, int penalty_points, int num_assignments_todrop[total_numof_assignment]) {
+  int i;
+
+compute_score(score[total_numof_assignment],weight[total_numof_assignment],days_late[total_numof_assignment], num_assignments_todrop, total_numof_assignment, penalty_points);
+
+printf("Numeric Score: %5.4f\n", score);
+printf("Points Penalty Per Day Late: %d\n", penalty_points);
+printf("Number of Assignments Dropped: %d\n", num_assignments_todrop);
+printf("Values Provided: \n);
+printf("Assignment, Score, Weight, Days Late");
+
+ for (i = 0; i < total_numof_assignment; i++) {
+    printf("%d %d %d %\nd", assignment_num[i], score[i], weight[i], days_late[i]);
+
+}
+return;
+}
+
+
+
+
+double compute_score(score[total_numof_assignment],weight[total_numof_assignment],days_late[total_numof_assignment], num_assignments_todrop, total_numof_assignment, penalty_points) {
+
+int i;
+double value[total_numof_assignment];
+int lowest_grade;
+lowest_score = score[0];
+
+
+while (lowest_score != "\n"){
+
+for(i = 0; i <= num_assignments_todrop; i++) {
+if(score[i] < lowest_score) {
+lowest_score = score[i] ;
+}
+}
+}
+
+
+for(i = 0; i < total_numof_assignment; i++) {
+value[i] = &score[i] * &weight[i];
+
+}
+
+
+
+
+
+
+/***************************************************************/
+/* Function will compute the standard deviation by taking the  */
+/* mean, subtract the penalty points and then square the value.*/
+/* Then it will take the quantity of the square root of the    */
+/* squared value  and divide by number of assignments.         */
+/***************************************************************/
+double compute_std(int scores[], int days_lates[], int total_numof_assignment,
+  int penalty_points) {
+  double squared_sum = 0, std_dev;
+  int score_after_penality = 0, i;
+
+  double mean = compute_mean(scores[], days_lates[], total_numof_assignment, penalty_points);
+
+  for (i = 0; i < total_numof_assignment; i++) {
+    score_after_penality = scores[i] - (days_lates[i] * penalty_points);
+
+    if (score_after_penality > 0) {
+squared_sum += pow((score_after_penality - mean), 2);
+    
+    } else {
+      score_after_penality = 0;
+
+  }
+ std_dev = sqrt(squared_sum / total_numof_assignment);
+
+ return std_dev;
+
+}
+
+
+
+/***************************************************************/
+/* Function will compute the mean by taking the  */
+        */
+/***************************************************************/
+double compute_mean(int scores[],int days_lates[], int total_numof_assignment, int penalty_points) {
+	double score_sum = 0, mean = 0;
+	int score_after_penality = 0;
+int i;
+
+	for (i = 0; i < number_of_assignments; i++) {
+		score_after_penality = scores[i] - (days_lates[i] * penality);
+
+		if (score_after_penality > 0) {
+			score_sum += score_after_penality;
+			
+		} else {
+		score_after_penality = 0;
+	}
+mean = (score_sum / total_numof_assignment);
+
+	return mean;
+}
+
+
+
+
+
+
+
+
+
+
+
